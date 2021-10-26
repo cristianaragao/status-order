@@ -9,18 +9,13 @@ import Grid from "@mui/material/Grid";
 
 import Stack from "@mui/material/Stack";
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-  >
-    •
-  </Box>
-);
+interface CardUI {
+  item: any;
+  changeStatus?: React.EventHandler<any>;
+}
 
-const value = 30;
+export default function BasicCard<CardUI>({ item, changeStatus }) {
 
-export default function BasicCard({ item }) {
   return (
     <Card sx={{ minWidth: 300, width: "80vw", marginBottom: "0.7rem" }}>
       <CardContent>
@@ -29,14 +24,14 @@ export default function BasicCard({ item }) {
           spacing={{ xs: 1, sm: 2, md: 4 }}
         >
           <Box style={{ textAlign: "left" }}>
-            <Typography>Pedido Nº {item}</Typography>
+            <Typography>Pedido Nº {item.id}</Typography>
           </Box>
           <Box style={{ textAlign: "left" }}>
-            <Typography variant="body2">McFritas Média + McFlurry</Typography>
+            <Typography variant="body2">{item.description}</Typography>
           </Box>
           <Box style={{ textAlign: "left" }}>
             <Typography variant="subtitle2">
-              {value.toLocaleString("pt-BR", {
+              {item.price.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
               })}
@@ -46,9 +41,19 @@ export default function BasicCard({ item }) {
       </CardContent>
       <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
         <Button size="small">Detalhes...</Button>
-        <Button size="small" variant="contained">
-          Fazer
-        </Button>
+        <div>
+          {item.status === 0 &&
+            <Button style={{ marginRight: "1rem" }} size="small" color="error" variant="contained" onClick={() => changeStatus(3)}>
+              Cancelar
+            </Button>
+          }
+         {item.status < 2 && <Button style={{ marginRight: "0.7rem" }} size="small" variant="contained" onClick={() => changeStatus()}>
+            {item.status === 0 && "Preparar"}
+            {item.status === 1 && "Entregar"}
+          </Button>}
+          {item.status === 2 && <span style={{ fontSize: 15, fontWeight: "bold", color: "green", border: "1px solid green", padding: "3px 5px", borderRadius: "3px",  marginRight: "0.7rem" }}>ENTREGUE</span>}
+          {item.status === 3 && <span style={{ fontSize: 15, fontWeight: "bold", color: "red", border: "1px solid red", padding: "3px 5px", borderRadius: "3px",  marginRight: "0.7rem" }}>CANCELADO</span>}
+        </div>
       </CardActions>
     </Card>
   );
