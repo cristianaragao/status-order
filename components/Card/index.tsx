@@ -1,11 +1,11 @@
 import * as React from "react";
+
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
 
 import Stack from "@mui/material/Stack";
 
@@ -14,8 +14,7 @@ interface CardUI {
   changeStatus?: React.EventHandler<any>;
 }
 
-export default function BasicCard<CardUI>({ item, changeStatus }) {
-
+const BasicCard: React.FC<CardUI> = ({ item, changeStatus }) => {
   return (
     <Card sx={{ minWidth: 300, width: "80vw", marginBottom: "0.7rem" }}>
       <CardContent>
@@ -42,19 +41,62 @@ export default function BasicCard<CardUI>({ item, changeStatus }) {
       <CardActions style={{ display: "flex", justifyContent: "space-between" }}>
         <Button size="small">Detalhes...</Button>
         <div>
-          {item.status === 0 &&
-            <Button style={{ marginRight: "1rem" }} size="small" color="error" variant="contained" onClick={() => changeStatus(3)}>
+          {item.status === 0 && (
+            <Button
+              style={{ marginRight: "1rem" }}
+              size="small"
+              color="error"
+              variant="contained"
+              onClick={() => changeStatus(3)}
+            >
               Cancelar
             </Button>
-          }
-         {item.status < 2 && <Button style={{ marginRight: "0.7rem" }} size="small" variant="contained" onClick={() => changeStatus()}>
-            {item.status === 0 && "Preparar"}
-            {item.status === 1 && "Entregar"}
-          </Button>}
-          {item.status === 2 && <span style={{ fontSize: 15, fontWeight: "bold", color: "green", border: "1px solid green", padding: "3px 5px", borderRadius: "3px",  marginRight: "0.7rem" }}>ENTREGUE</span>}
-          {item.status === 3 && <span style={{ fontSize: 15, fontWeight: "bold", color: "red", border: "1px solid red", padding: "3px 5px", borderRadius: "3px",  marginRight: "0.7rem" }}>CANCELADO</span>}
+          )}
+          {item.status < 2 && (
+            <Button
+              style={{ marginRight: "0.7rem" }}
+              size="small"
+              variant="contained"
+              onClick={() => changeStatus(item.status + 1)}
+            >
+              {item.status === 0 && "Preparar"}
+              {item.status === 1 && "Entregar"}
+            </Button>
+          )}
+          {item.status === 2 && (
+            <span
+              style={{
+                fontSize: 15,
+                fontWeight: "bold",
+                color: "green",
+                border: "1px solid green",
+                padding: "3px 5px",
+                borderRadius: "3px",
+                marginRight: "0.7rem",
+              }}
+            >
+              ENTREGUE
+            </span>
+          )}
+          {item.status === 3 && (
+            <span
+              style={{
+                fontSize: 15,
+                fontWeight: "bold",
+                color: "red",
+                border: "1px solid red",
+                padding: "3px 5px",
+                borderRadius: "3px",
+                marginRight: "0.7rem",
+              }}
+            >
+              CANCELADO
+            </span>
+          )}
         </div>
       </CardActions>
     </Card>
   );
 }
+
+export default BasicCard;

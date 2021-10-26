@@ -130,14 +130,14 @@ export default function BasicTabs() {
       </Box>
       <TabPanel value={value} index={0}>
         {todo.length > 0 ? (
-          todo.map((item, index) => <Card key={index} item={item} changeStatus={(cancel: number) => setStatus(index, cancel || 1)}/>)
+          todo.map((item, index) => <Card key={index} item={item} changeStatus={(status: number) => setStatus(index, status)}/>)
         ) : (
           <Typography>Sem pedidos a preparar.</Typography>
         )}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {doing.length > 0 ? (
-          doing.map((item, index) => <Card key={index} item={item}  changeStatus={() => setStatus(index, 2)}/>)
+          doing.map((item, index) => <Card key={index} item={item}  changeStatus={(status: number) => setStatus(index, status)}/>)
         ) : (
           <Typography>Nenhum pedido em progresso.</Typography>
         )}
