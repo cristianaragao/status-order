@@ -49,7 +49,7 @@ function TabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
-      style={{ display: "flex", justifyContent: "center", width: "100%" }}
+      style={{ padding: "0 1rem", maxWidth: 1100, margin: "auto" }}
     >
       {value === index && <Box sx={{ paddingTop: 3, display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>{children}</Box>}
     </div>
@@ -111,7 +111,7 @@ export default function BasicTabs() {
   }
 
   return (
-    <Box sx={{ width: "100%" }} ref={pushTodoRef}>
+    <Box style={{ minWidth: "100%", width: "100%" }} ref={pushTodoRef}>
       <Box
         sx={{
           borderBottom: 1,
@@ -120,11 +120,11 @@ export default function BasicTabs() {
       >
         <Tabs value={value} onChange={handleChange} centered>
 
-          <Tab sx={{ zIndex: 3 }} label={<span>PREPARAR {getCountItens(todo.length)}</span>} />
+          <Tab label={<span>PREPARAR {getCountItens(todo.length)}</span>} />
 
-          <Tab sx={{ zIndex: 10 }} label={<span>EM PROGRESSO {getCountItens(doing.length)}</span>} />
+          <Tab label={<span>EM PROGRESSO {getCountItens(doing.length)}</span>} />
 
-          <Tab sx={{ zIndex: 3 }} label={<span>FINALIZADOS</span>} />
+          <Tab label={<span>FINALIZADOS</span>} />
 
         </Tabs>
       </Box>

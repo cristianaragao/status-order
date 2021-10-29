@@ -15,21 +15,27 @@ interface CardUI {
 }
 
 const BasicCard: React.FC<CardUI> = ({ item, changeStatus }) => {
+
+  const style: any = {}
+
+  if(item.description.length > 50) item.description = item.description.substring(0, 50) + "..."
+
   return (
-    <Card sx={{ minWidth: 300, width: "80vw", marginBottom: "0.7rem" }}>
+    <Card sx={{ width: "100%", marginBottom: "0.7rem" }}>
       <CardContent>
         <Stack
+          justifyContent="space-between"
           direction={{ xs: "column", sm: "row" }}
           spacing={{ xs: 1, sm: 2, md: 4 }}
         >
           <Box style={{ textAlign: "left" }}>
-            <Typography>Pedido Nº {item.id}</Typography>
+            <Typography variant="h6">Pedido Nº {item.id}</Typography>
+          </Box>
+          <Box style={{ textAlign: "left", ...style }}>
+            <Typography style={{...style}} variant="subtitle1">{item.description}</Typography>
           </Box>
           <Box style={{ textAlign: "left" }}>
-            <Typography variant="body2">{item.description}</Typography>
-          </Box>
-          <Box style={{ textAlign: "left" }}>
-            <Typography variant="subtitle2">
+            <Typography variant="h6">
               {item.price.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
@@ -97,6 +103,6 @@ const BasicCard: React.FC<CardUI> = ({ item, changeStatus }) => {
       </CardActions>
     </Card>
   );
-}
+};
 
 export default BasicCard;
